@@ -12,16 +12,16 @@ namespace bookstore.api.Repositories
 			_databaseContext = databaseContext;
 		}
 
-		public async Task<List<Book>> GetAllBooks()
+		public  List<Book> GetAllBooks()
 		{
-			var books = await _databaseContext.Books.ToListAsync();
+			var books = _databaseContext.Books.ToList();
 
 			return books;
 		}
 
-		public async Task<Book> GetBook(int id)
+		public  Book GetBook(int id)
 		{
-			var books = await _databaseContext.Books.FirstOrDefaultAsync(book => book.Id == id);
+			var books = _databaseContext.Books.FirstOrDefault(book => book.Id == id);
 			
 			if(books == null)
 			{
@@ -31,17 +31,17 @@ namespace bookstore.api.Repositories
 			return books;
 		}
 
-		public async Task<Book> PostBook(Book book)
+		public Book PostBook(Book book)
 		{
-			await _databaseContext.Books.AddAsync(book);
-			await _databaseContext.SaveChangesAsync();
+			_databaseContext.Books.Add(book);
+			_databaseContext.SaveChanges();
 
 			return book;
 		}
 
-		public async void EditBook(int id, Book book)
+		public void EditBook(int id, Book book)
 		{
-			var dbBook = await _databaseContext.Books.FirstOrDefaultAsync(books => books.Id == id);
+			var dbBook = _databaseContext.Books.FirstOrDefault(books => books.Id == id);
 
 			if(dbBook == null)
 			{
@@ -53,12 +53,12 @@ namespace bookstore.api.Repositories
 			dbBook.Author = book.Author;
 			dbBook.Price = book.Price;
 
-			await _databaseContext.SaveChangesAsync();
+			_databaseContext.SaveChanges();
 		}
 
-		public async Task<Book> DeleteBook(int id)
+		public Book DeleteBook(int id)
 		{
-			var dbBook = await _databaseContext.Books.FirstOrDefaultAsync(books => books.Id == id);
+			var dbBook = _databaseContext.Books.FirstOrDefault(books => books.Id == id);
 
 			if (dbBook == null)
 			{
@@ -66,7 +66,7 @@ namespace bookstore.api.Repositories
 			}
 
 		    _databaseContext.Books.Remove(dbBook);
-			await _databaseContext.SaveChangesAsync();
+			_databaseContext.SaveChanges();
 			return dbBook;
 		}
 	}

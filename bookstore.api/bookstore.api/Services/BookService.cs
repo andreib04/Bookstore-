@@ -12,27 +12,27 @@ namespace bookstore.api.Services
 			_bookRepository = bookRepository;
 		}
 
-		public async Task<List<Book>> GetAllBooks()
+		public List<Book> GetAllBooks()
 		{
-			return await _bookRepository.GetAllBooks();
+			return _bookRepository.GetAllBooks();
 		}
 
-		public async Task<Book> GetBook(int id)
+		public Book GetBook(int id)
 		{
-			return await _bookRepository.GetBook(id);
+			return _bookRepository.GetBook(id);
 		}
 
-		public async Task<Book> PostBook(Book book)
+		public Book PostBook(Book book)
 		{
-			return await _bookRepository.PostBook(book);
+			return _bookRepository.PostBook(book);
 		}
 		public void EditBook(int id, Book book)
 		{
 			_bookRepository.EditBook(id, book);
 		}
-		public async Task<Book> DeleteBook(int id)
+		public Book DeleteBook(int id)
 		{
-			return await _bookRepository.DeleteBook(id);
+			return _bookRepository.DeleteBook(id);
 		}
 	}
 }

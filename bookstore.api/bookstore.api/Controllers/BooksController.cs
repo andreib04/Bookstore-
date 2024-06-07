@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace bookstore.api.Controllers
 {
+	[Controller]
+	[Route("/api/[controller]")]
 	public class BooksController : ControllerBase
 	{
 		private readonly IBookService _bookService;
@@ -14,11 +16,11 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> GetAllBooks()
+		public ActionResult GetAllBooks()
 		{
 			try
 			{
-				var books = await _bookService.GetAllBooks();
+				var books = _bookService.GetAllBooks();
 				return new OkObjectResult(books);
 			}
 			catch
@@ -31,11 +33,11 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult> GetBook(int id)
+		public ActionResult GetBook(int id)
 		{
 			try
 			{
-				var books = await _bookService.GetBook(id);
+				var books = _bookService.GetBook(id);
 				return new OkObjectResult(books);
 			}
 			catch(KeyNotFoundException e)
@@ -52,11 +54,11 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> PostBook([FromBody] Book book)
+		public  ActionResult PostBook([FromBody] Book book)
 		{
 			try
 			{
-				var dbBook = await _bookService.PostBook(book);
+				var dbBook = _bookService.PostBook(book);
 				return new OkObjectResult(dbBook);
 			}
 			catch (KeyNotFoundException e)
@@ -94,11 +96,11 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<ActionResult> DeleteBook(int id)
+		public  ActionResult DeleteBook(int id)
 		{
 			try
 			{
-				Book dbBook = await _bookService.DeleteBook(id);
+				Book dbBook = _bookService.DeleteBook(id);
 				return new OkObjectResult(dbBook);
 			}
 			catch (KeyNotFoundException e)
