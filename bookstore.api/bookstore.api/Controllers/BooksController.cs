@@ -1,5 +1,6 @@
 ﻿using bookstore.api.Models;
 using bookstore.api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bookstore.api.Controllers
@@ -16,6 +17,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpGet]
+		[AllowAnonymous]
 		public ActionResult GetAllBooks()
 		{
 			try
@@ -33,6 +35,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[AllowAnonymous]
 		public ActionResult GetBook(int id)
 		{
 			try
@@ -54,6 +57,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Policy = "Admin")]
 		public  ActionResult PostBook([FromBody] Book book)
 		{
 			try
@@ -75,6 +79,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Policy = "Admin")]
 		public ActionResult EditBook(int id, [FromBody] Book book)
 		{
 			try
@@ -96,6 +101,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpDelete]
+		[Authorize(Policy = "Admin")]
 		public  ActionResult DeleteBook(int id)
 		{
 			try

@@ -1,6 +1,7 @@
 ﻿using bookstore.api.Models;
 using bookstore.api.Services;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bookstore.api.Controllers
@@ -19,6 +20,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Policy = "Admin")]
 		public ActionResult GetAllUsers()
 		{
 			try
@@ -35,7 +37,8 @@ namespace bookstore.api.Controllers
 			}
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
+		[Authorize(Policy = "Admin")]
 		public ActionResult GetUser(int id)
 		{
 			try
@@ -57,6 +60,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpPost]
+		[AllowAnonymous]
 		public ActionResult PostUser([FromBody] User user)
 		{
 			try
@@ -81,6 +85,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Policy = "Admin")]
 		public ActionResult EditUser(int id, [FromBody] User user)
 		{
 			try
@@ -109,6 +114,7 @@ namespace bookstore.api.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Policy = "Admin")]
 		public ActionResult DeleteUser(int id)
 		{
 			try
