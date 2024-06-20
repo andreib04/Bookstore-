@@ -30,6 +30,11 @@ namespace bookstore.api.Repositories
 
 		public User PostUser(User user)
 		{
+			if (string.IsNullOrEmpty(user.Role))
+			{
+				user.Role = "Member";
+			}
+
 			_databaseContext.Users.Add(user);
 			_databaseContext.SaveChanges();
 
