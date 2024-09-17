@@ -15,18 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
 											//options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-string policyName = "localhostPolicy";
-builder.Services.AddCors(options =>
-{
-	options.AddPolicy(name: policyName,
-						policy =>
-						{
-							policy.WithOrigins("http://localhost:4200");
-							policy.WithMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS");
-							policy.WithHeaders("Access-Control-Allow-Headers", "Authorization", "Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers");
-						}
-					 );
-});
+//string policyName = "localhostPolicy";
+//builder.Services.AddCors(options =>
+//{
+//	options.AddPolicy(name: policyName,
+//						policy =>
+//						{
+//							policy.WithOrigins("http://localhost:4200");
+//							policy.WithMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS");
+//							policy.WithHeaders("Access-Control-Allow-Origin" ,"Access-Control-Allow-Headers", "Authorization", "Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers");
+//						}
+//					 );
+//});
 
 // Add services to the container.
 
@@ -113,6 +113,10 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors(builder => builder
+	 .AllowAnyOrigin()
+	 .AllowAnyMethod()
+	 .AllowAnyHeader());
 
 app.MapControllers();
 

@@ -25,11 +25,11 @@ namespace bookstore.api.Controllers
 		[HttpPost]
 		public IActionResult Login([FromBody] UserLogin userLogin)
 		{
-			var user = _databaseContext.Users.FirstOrDefault(u => u.Name == userLogin.Username && u.Password == userLogin.Password);
+			var user = _databaseContext.Users.FirstOrDefault(u => u.Email == userLogin.Email && u.Password == userLogin.Password);
 			
 			if(user != null)
 			{
-				var token = GenerateJwtToken(user.Name, user.Role);
+				var token = GenerateJwtToken(user.Email, user.Role);
 				return Ok(new { token });
 			}
 
